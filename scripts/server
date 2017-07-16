@@ -1,0 +1,18 @@
+#!/usr/bin/env python
+import socket
+import time
+
+status_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+status_socket.bind(('0.0.0.0', 3434))
+
+control_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+while True:
+    print 'Sending'
+    control_socket.sendto('hi there', ('192.168.1.42', 3434))
+
+    print 'Receiving'
+    data, addr = status_socket.recvfrom(4096)
+    print 'Received message:', data
+
+    time.sleep(1.0)
